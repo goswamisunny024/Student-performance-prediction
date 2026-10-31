@@ -1,14 +1,20 @@
 import pandas as pd
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 
 # Step 1: Load Dataset
-data = pd.read_csv("dataset/student_data.csv")
+data_path = "student_data.csv" if os.path.exists("student_data.csv") else "dataset/student_data.csv"
+data = pd.read_csv(data_path)
 
 # Step 2: Select Input and Output
-X = data[["Hours_Studied", "Attendance",
-          "Previous_Score", "Sleep_Hours"]]
+X = data[[
+    "Hours_Studied",
+    "Attendance",
+    "Previous_Score",
+    "Sleep_Hours"
+]]
 
 y = data["Final_Score"]
 
@@ -43,5 +49,4 @@ new_student = pd.DataFrame([{
 }])
 
 result = model.predict(new_student)
-
 print("\nPredicted Student Score:", round(result[0], 2))
