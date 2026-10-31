@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
@@ -10,7 +11,8 @@ st.set_page_config(
 )
 
 # Load Dataset
-data = pd.read_csv("dataset/student_data.csv")
+data_path = "student_data.csv" if os.path.exists("student_data.csv") else "dataset/student_data.csv"
+data = pd.read_csv(data_path)
 
 # Train Model
 X = data[[
